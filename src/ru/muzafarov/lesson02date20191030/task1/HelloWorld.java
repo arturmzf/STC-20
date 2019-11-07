@@ -10,7 +10,9 @@
 package ru.muzafarov.lesson02date20191030.task1;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 public class HelloWorld {
 
@@ -20,13 +22,14 @@ public class HelloWorld {
 
         try {
 
-            /*
-            Integer a;
-            System.out.println(a);
-            */
+            /*List<Integer> list = null;
+            System.out.println(list.get(0));*/
 
-            throw new NullPointerException();
+            //throw new NullPointerException();
             //System.out.println(array[10]);
+
+            throw new MyException();
+            //FileReader fr = new FileReader("file.file");
 
         } catch(NullPointerException e) {
 
@@ -40,7 +43,11 @@ public class HelloWorld {
 
             System.out.println("Внимание! Ошибка работы с файлом!");
 
-        }*/ finally {
+        }*/ catch (MyException e) {
+
+            System.out.println("Внимание! Пользовательская ошибка!");
+
+        } finally {
 
             System.out.println("Hello, World!");
 
