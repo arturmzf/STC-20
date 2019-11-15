@@ -7,9 +7,9 @@
  * Музафаров Артур Ринатович
  */
 
-package ru.muzafarov.lesson02date20191030.task2;
+package ru.muzafarov.lesson02date20191030.task3;
 
-public class NegativeNumberException extends Exception {
+public class Sorting2 /*implements Sorting*/ {
 
 
 
