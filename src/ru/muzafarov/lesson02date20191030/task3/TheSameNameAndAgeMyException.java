@@ -9,9 +9,8 @@
 
 package ru.muzafarov.lesson02date20191030.task3;
 
-public interface Sorting {
+public class TheSameNameAndAgeMyException extends Exception {
 
-    void arrayPrinting(String message);
-    void sort();
+
 
 }

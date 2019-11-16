@@ -9,8 +9,6 @@
 
 package ru.muzafarov.lesson02date20191030.task3;
 
-import java.util.Random;
-
 public class PersonApp {
 
     public static void main(String[] args) {
@@ -39,6 +37,11 @@ public class PersonApp {
         Person[] persons = new Person[]{
                 new Person(
                 "Музафаров Артур Ринатович",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "Музафаров Артур Ринатович",
                         (byte) 27,
                         Sex.MAN
                 ),
@@ -120,8 +123,10 @@ public class PersonApp {
                 )
         };
 
-        BubleSorting bs = new BubleSorting(persons);
+        BubbleSorting bs = new BubbleSorting(persons);
+        bs.arrayPrinting("Первоначальный массив:");
         bs.sort();
+        bs.arrayPrinting("Массив после сортировки:");
 
     }
 
