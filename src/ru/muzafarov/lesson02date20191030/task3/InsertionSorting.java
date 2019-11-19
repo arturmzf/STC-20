@@ -11,12 +11,12 @@ package ru.muzafarov.lesson02date20191030.task3;
 
 import java.util.Comparator;
 
-public class BubbleSorting implements Sorting, Comparator<String> {
+public class InsertionSorting implements Sorting, Comparator<String> {
 
     private Person[] persons;
     private int counter = 0;
 
-    public BubbleSorting(Person[] persons){
+    public InsertionSorting(Person[] persons){
 
         this.persons = persons;
 
@@ -32,7 +32,7 @@ public class BubbleSorting implements Sorting, Comparator<String> {
     public void arrayPrinting(String message) {
 
         System.out.println("==============================");
-        System.out.println("Работа пузырьковой сортировки");
+        System.out.println("Работа сортировки методом вставки");
         System.out.println("==============================");
         System.out.println(message);
         System.out.println();
@@ -65,62 +65,52 @@ public class BubbleSorting implements Sorting, Comparator<String> {
 
     public void sort() {
 
-        for (int x = this.persons.length - 1; x >= 1; x--) {
+        for (int x = 1; x < this.persons.length; x++) {
 
-            for (int y = 0; y < x; y++) {
+            Person personTemp = this.persons[x].clone();
 
-                String name1 = this.persons[y].getName();
-                String name2 = this.persons[y + 1].getName();
+            int y = x;
 
-                if (compare(name1, name2) > 0) {
+            while((y > 0) && (this.persons[y - 1].getSex().getSexFlag() < personTemp.getSex().getSexFlag())) {
 
-                    this.persons = swap(this.persons, y, y + 1);
-                    this.counter++;
+                this.persons[y] = this.persons[y - 1].clone();
+                --y;
 
-                }
+                this.counter++;
+            }
 
-                for (int i = this.persons.length - 1; i >= 1; i--) {
+            while((y > 0) && this.persons[y - 1].getAge() < personTemp.getAge() &&
+                    this.persons[y - 1].getSex().getSexFlag() == personTemp.getSex().getSexFlag()) {
 
-                    for (int j = 0; j < i; j++) {
+                this.persons[y] = this.persons[y - 1].clone();
+                --y;
 
-                        if (this.persons[j].getAge() < this.persons[j + 1].getAge()) {
-
-                            this.persons = swap(this.persons, j, j + 1);
-                            this.counter++;
-
-                        }
-
-                        for (int k = this.persons.length - 1; k >= 1; k--) {
-
-                            for (int l = 0; l < k; l++) {
-
-                                if (this.persons[l].getSex().getSexFlag() < this.persons[l + 1].getSex().getSexFlag()) {
-
-                                    this.persons = swap(this.persons, l, l + 1);
-                                    this.counter++;
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
+                this.counter++;
 
             }
 
+            while((y > 0) && (compare(this.persons[y - 1].getName(), personTemp.getName()) > 0) &&
+                    this.persons[y - 1].getAge() == personTemp.getAge() &&
+                    this.persons[y - 1].getSex().getSexFlag() == personTemp.getSex().getSexFlag()) {
+
+                this.persons[y] = this.persons[y - 1].clone();
+                --y;
+
+                this.counter++;
+            }
+
+
+                persons[y] = personTemp;
+
         }
 
-        for (int a = 0; a < this.persons.length - 1; a++) {
+        for (int q = 0; q < this.persons.length - 1; q++) {
 
             try {
 
-                if(this.persons[a].getName().equals(this.persons[a + 1].getName()) &&
-                        this.persons[a].getAge() == this.persons[a + 1].getAge() &&
-                        this.persons[a].getSex().getSexFlag() == this.persons[a + 1].getSex().getSexFlag()) {
+                if(this.persons[q].getName().equals(this.persons[q + 1].getName()) &&
+                        this.persons[q].getAge() == this.persons[q + 1].getAge() &&
+                        this.persons[q].getSex().getSexFlag() == this.persons[q + 1].getSex().getSexFlag()) {
 
                     throw new TheSameNameAndAgeMyException();
 

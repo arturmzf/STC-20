@@ -24,6 +24,10 @@ public enum Sex {
         return sexFlag;
     }
 
+    public void setSexFlag(int sexFlag) {
+        this.sexFlag = sexFlag;
+    }
+
     public String getSexRu() {
         return sexRu;
     }

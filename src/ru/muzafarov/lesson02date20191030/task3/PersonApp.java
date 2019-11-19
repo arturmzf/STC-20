@@ -9,32 +9,61 @@
 
 package ru.muzafarov.lesson02date20191030.task3;
 
+import java.util.Random;
+
 public class PersonApp {
 
     public static void main(String[] args) {
 
-        /*
         // Автоматическая генерация массива
-        String st = "ABCDEF";
+        int arraySize = 1000;
+        Person[] personAutomatic = new Person[arraySize];
+        Sex sex;
 
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < arraySize; i++) {
 
+            Random rnd = new Random();
+            sex = (rnd.nextInt(2) == 0) ? Sex.WOMAN : Sex.MAN;
+            String stUppercase = "АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ";
+            String stLowercase = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
             String name = "";
 
-            for(int j = 0; j < 4; j++) {
+            name += stUppercase.charAt(rnd.nextInt(stUppercase.length()));
 
-                Random rnd = new Random();
+            for(int d = 0; d < rnd.nextInt(20); d++) {
 
-                name += st.charAt(rnd.nextInt(st.length()));
+                name += stLowercase.charAt(rnd.nextInt(stLowercase.length()));
 
-            }
+            };
 
-            System.out.println(name);
+            name += " ";
+            name += stUppercase.charAt(rnd.nextInt(stUppercase.length()));
+
+            for(int d = 0; d < rnd.nextInt(20); d++) {
+
+                name += stLowercase.charAt(rnd.nextInt(stLowercase.length()));
+
+            };
+
+            name += " ";
+            name += stUppercase.charAt(rnd.nextInt(stUppercase.length()));
+
+            for(int d = 0; d < rnd.nextInt(20); d++) {
+
+                name += stLowercase.charAt(rnd.nextInt(stLowercase.length()));
+
+            };
+
+            personAutomatic[i] = new Person(
+                    name,
+                    (byte) rnd.nextInt(100),
+                    sex
+            );
+
         }
-        */
 
         // Ручное заполнение массива
-        Person[] persons = new Person[]{
+        Person[] persons1 = new Person[]{
                 new Person(
                 "Музафаров Артур Ринатович",
                         (byte) 27,
@@ -112,21 +141,339 @@ public class PersonApp {
                         Sex.WOMAN
                 ),
                 new Person(
+                        "Короткова Лариса Михайловна",
+                        (byte) 67,
+                        Sex.WOMAN
+                ),
+                new Person(
                         "Пучков Владимир Анатольевич",
                         (byte) 37,
                         Sex.MAN
+                )
+        };
+
+        // Для проверки
+        Person[] persons2 = new Person[]{
+                new Person(
+                        "ААА",
+                        (byte) 27,
+                        Sex.MAN
                 ),
                 new Person(
-                        "Короткова Лариса Михайловна",
-                        (byte) 67,
+                        "БББ",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ЕЕЕ",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ААА",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ЕЕЕ",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ААА",
+                        (byte) 50,
+                        Sex.MAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 50,
+                        Sex.MAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 50,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ЕЕЕ",
+                        (byte) 50,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 50,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ААА",
+                        (byte) 50,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 50,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 50,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ЕЕЕ",
+                        (byte) 50,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 50,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 50,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 50,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ААА",
+                        (byte) 15,
+                        Sex.MAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 15,
+                        Sex.MAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 15,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ЕЕЕ",
+                        (byte) 15,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 15,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ААА",
+                        (byte) 15,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 15,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 15,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ЕЕЕ",
+                        (byte) 15,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 15,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 15,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 15,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ААА",
+                        (byte) 38,
+                        Sex.MAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 38,
+                        Sex.MAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 38,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ЕЕЕ",
+                        (byte) 38,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 38,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ААА",
+                        (byte) 38,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 38,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 38,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ЕЕЕ",
+                        (byte) 38,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 38,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 38,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 38,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 38,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 38,
                         Sex.WOMAN
                 )
         };
 
-        BubbleSorting bs = new BubbleSorting(persons);
+        // Для отладки
+        Person[] persons3 = new Person[]{
+                new Person(
+                        "ААА",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ААА",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ВВВ",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "БББ",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "AAA",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 27,
+                        Sex.MAN
+                ),
+                new Person(
+                        "ГГГ",
+                        (byte) 27,
+                        Sex.WOMAN
+                ),
+                new Person(
+                        "ДДД",
+                        (byte) 27,
+                        Sex.MAN
+                )
+        };
+
+        BubbleSorting bs = new BubbleSorting(persons1);
         bs.arrayPrinting("Первоначальный массив:");
         bs.sort();
         bs.arrayPrinting("Массив после сортировки:");
+
+        InsertionSorting is = new InsertionSorting(personAutomatic);
+        is.arrayPrinting("Первоначальный массив:");
+        is.sort();
+        is.arrayPrinting("Массив после сортировки:");
 
     }
 
