@@ -10,32 +10,30 @@
 package ru.muzafarov.lesson03date20191101.task1;
 
 
+import java.util.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Set;
 
 public class MathBox {
 
     private Number[] numbers;
-    private ArrayList<Number> numbersCollection;
+
+    private List<Number> numbersCollection;
 
     public MathBox(Number[] numbers) {
 
         this.numbers = numbers;
 
         this.numbersCollection = new ArrayList<Number>(Arrays.asList(numbers));
-        //Set<Number> numbers = new HashSet<Number>;
-
 
     }
 
-    public int summator() {
+    public double summator() {
 
-        int sum = 0;
+        double sum = 0;
 
-        for(int i = 0; i < this.numbersCollection.size(); i++) {
+        for(int i = 0; i < numbersCollection.size(); i++) {
 
-            sum += (int)this.numbersCollection.get(i).getNumber();
+            sum += numbersCollection.get(i).doubleValue();
 
         }
 
@@ -43,51 +41,68 @@ public class MathBox {
 
     }
 
-    public void splitter(int divisor) {
-
-        for(int i = 0; i < this.numbersCollection.size(); i++) {
+    public List<Number> splitter(int divisor) {
 
 
-            this.numbers[i].setNumber(((int)((int)this.numbersCollection.get(i).getNumber() / divisor)));
-            this.numbersCollection = new ArrayList<Number>(Arrays.asList(this.numbers));
+        //double
+        // for
+        List<Number> numbersCollection2 = new ArrayList<>();
+
+        Iterator itrt = numbersCollection.iterator();
+
+        while(itrt.hasNext()) {
+
+            numbersCollection2.add(itrt.next().intValue() / divisor);
 
         }
 
+        return numbersCollection2;
+
     }
 
-    public void congruenceFinder(Integer element) {
+    public List<Number> congruenceFinder(Integer element) {
 
-        for(int i = 0; i < this.numbersCollection.size(); i++) {
 
-            if(this.numbersCollection.get(i).getNumber().equals(element)) {
+        List<Number> numbersCollection2 = new ArrayList<Number>();
 
-                this.numbersCollection.remove(i);
+        Iterator itrt = numbersCollection.iterator();
+
+        while(itrt.hasNext()) {
+
+            if(element.intValue() != itrt.intValue()) {
+
+                numbersCollection2.add(itrt.next().intValue());
 
             }
 
         }
 
+        return numbersCollection2;
+
     }
 
     @Override
     public String toString() {
+        return "MathBox{" +
+                "numbers=" + Arrays.toString(numbers) +
+                ", numbersCollection=" + numbersCollection +
+                '}';
+    }
 
-        return " ";
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MathBox mathBox = (MathBox) o;
+        return Arrays.equals(numbers, mathBox.numbers) &&
+                Objects.equals(numbersCollection, mathBox.numbersCollection);
     }
 
     @Override
     public int hashCode() {
-
-        return 0;
-
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-
-        return false;
-
+        int result = Objects.hash(numbersCollection);
+        result = 31 * result + Arrays.hashCode(numbers);
+        return result;
     }
 
 }

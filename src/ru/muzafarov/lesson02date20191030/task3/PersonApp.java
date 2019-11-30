@@ -470,10 +470,12 @@ public class PersonApp {
         bs.sort();
         bs.arrayPrinting("Массив после сортировки:");
 
+        /*
         InsertionSorting is = new InsertionSorting(personAutomatic);
         is.arrayPrinting("Первоначальный массив:");
         is.sort();
         is.arrayPrinting("Массив после сортировки:");
+        */
 
     }
 
