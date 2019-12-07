@@ -11,26 +11,40 @@ package ru.muzafarov.lesson05date20191108;
 
 public enum Sex {
 
-    MAN(1, "Мужчина"),
-    WOMAN(0,"Женщина");
+    MAN(1, 'М', "Мужчина"),
+    WOMAN(0, 'Ж', "Женщина");
 
-    private int sexFlag;
+    private int sexFlagInt;
+    private char sexFlagChar;
     private String sexTitle;
 
-    public int getSexFlag() {
-        return sexFlag;
+    public int getSexFlagInt() {
+        return sexFlagInt;
     }
 
-    public void setSexFlag(int sexFlag) {
-        this.sexFlag = sexFlag;
+    public void setSexFlagInt(int sexFlagInt) {
+        this.sexFlagInt = sexFlagInt;
+    }
+
+    public char getSexFlagChar() {
+        return sexFlagChar;
+    }
+
+    public void setSexFlagChar(char sexFlagChar) {
+        this.sexFlagChar = sexFlagChar;
     }
 
     public String getSexTitle() {
         return sexTitle;
     }
 
-    Sex(int sexFlag, String sexTitle) {
-        this.sexFlag = sexFlag;
+    public void setSexTitle(String sexTitle) {
+        this.sexTitle = sexTitle;
+    }
+
+    Sex(int sexFlagInt, char sexFlagChar, String sexTitle) {
+        this.sexFlagInt = sexFlagInt;
+        this.sexFlagChar = sexFlagChar;
         this.sexTitle = sexTitle;
     }
 

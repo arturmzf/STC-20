@@ -9,15 +9,17 @@
 
 package ru.muzafarov.lesson05date20191108;
 
-public class Animal {
+public class Animal implements Comparable<Animal> {
 
     private int id;
+    private Type type;
     private String name;
     private Person owner;
     private int weight;
 
-    public Animal(int id, String name, Person owner, int weight) {
+    public Animal(int id, Type type, String name, Person owner, int weight) {
         this.id = id;
+        this.type = type;
         this.name = name;
         this.owner = owner;
         this.weight = weight;
@@ -29,6 +31,14 @@ public class Animal {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -53,6 +63,25 @@ public class Animal {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Animal animal) {
+
+        if(this.name.compareTo(animal.name) == 1) {
+
+            return 1;
+
+        } else if(this.name.compareTo(animal.name) == -1) {
+
+            return -1;
+
+        } else {
+
+            // Далее сравнение по возрасту хозяина
+
+        }
+
     }
 
 }
