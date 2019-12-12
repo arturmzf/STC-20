@@ -11,7 +11,7 @@ package ru.muzafarov.lesson05date20191108;
 
 import java.util.*;
 
-public class AnimalsApp implements Comparator<Animal> {
+public class AnimalsApp {
 
     /*
     // Ручное заполнение
@@ -165,33 +165,39 @@ public class AnimalsApp implements Comparator<Animal> {
     // Добавление питомца
     public static void addAnimal(Type type, String animalName, int animalWeight, String personName, int personAge, Sex personSex){
 
+        int flag = 0;
         Animal animal = new Animal(animalMainId, type, animalName, new Person(personName, personAge, personSex), animalWeight);
 
+        while(flag == 0) {
 
-        animals.put(animalMainId, animal);
+            try {
 
-        /*
-        !!! Не могу реализовать проверку на повторные элементы
-        try {
+                if(animals.containsValue(animal)) {
 
-            if(!animals.put(animalMainId, animal)) {
+                    throw new DuplicateAnimalExeption();
 
-                throw new DuplicateAnimalExeption();
+                }
+
+                animals.put(animalMainId, animal);
+
+                animalMainId++;
+
+            } catch(DuplicateAnimalExeption e) {
+
+                System.out.println("В картотеке уже существует описание данного животного. Повторите попытку!");
+
+            } finally {
+
+                System.out.println("Хотите продолжить добавление питомцев?");
+                System.out.println("Если да - введите 1, если нет - введите 0 в поле ниже и нажмите ENTER:");
+                Scanner scannerWantToAdd = new Scanner(System.in);
+                int wantToAdd = scannerWantToAdd.nextInt();
+
+                flag = (wantToAdd == 1) ? 0 : 1;
 
             }
 
-            animalMainId++;
-
-        } catch(DuplicateAnimalExeption e) {
-
-            System.out.println("В картотеке уже существует описание данного животного. Повторите попытку!");
-
-        } finally {
-
-            // EMPTY!
-
         }
-        */
 
         /*
         // Ручное заполнение
@@ -203,7 +209,7 @@ public class AnimalsApp implements Comparator<Animal> {
 
     }
 
-    // Пиоиск питомца по его кличке
+    // Поиск питомца по его кличке
     public static void searchAnimal(String animalName){
 
         if(animals.containsValue(animalName)) {
@@ -269,31 +275,21 @@ public class AnimalsApp implements Comparator<Animal> {
     public static void printAnimals(){
 
         List<Animal> animalObjects = new ArrayList<>(animals.values());
-
-
-
-        
-
-
-
-
-
-
-
-
-        for(int m = 0; m < animalObjects.size(); m++ ) {
-
-            animalObjects.get(m).compareTo(animalObjects.get(m + 1));
-
-        }
+        List<Animal> resultAnimalObjects = new ArrayList<>(animalObjects.size());
 
         for (int x = animalObjects.size() - 1; x >= 1; x--) {
 
             for (int y = 0; y < x; y++) {
 
-                if (compare(animalObjects.get(y), animalObjects.get(y + 1)) > 0) {
+                if (animalObjects.get(y).compareTo(animalObjects.get(y + 1)) > 0) {
 
+                    resultAnimalObjects.set(y, animalObjects.get(y + 1));
+                    resultAnimalObjects.set(y + 1, animalObjects.get(y));
 
+                } else {
+
+                    resultAnimalObjects.set(y, animalObjects.get(y));
+                    resultAnimalObjects.set(y + 1, animalObjects.get(y + 1));
 
                 }
 
@@ -301,9 +297,15 @@ public class AnimalsApp implements Comparator<Animal> {
 
         }
 
+        for(int i = 0; i < resultAnimalObjects.size(); i++) {
 
+            System.out.println("Питомец: " + resultAnimalObjects.get(i).getName() +
+                    " - Вес животного: " + resultAnimalObjects.get(i).getWeight() +
+                    " - Хозяин: " + resultAnimalObjects.get(i).getOwner().getName() +
+                    " - Возраст хозяина: " + resultAnimalObjects.get(i).getOwner().getAge() +
+                    " - Пол хозяина: " + resultAnimalObjects.get(i).getOwner().getSex().getSexTitle());
 
-        // System.out.println(animals);
+        }
 
     }
 
