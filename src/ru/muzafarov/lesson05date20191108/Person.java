@@ -9,7 +9,7 @@
 
 package ru.muzafarov.lesson05date20191108;
 
-public class Person {
+public class Person implements Comparable<Person> {
 
     private String name;
     private int age;
@@ -44,4 +44,55 @@ public class Person {
     public void setSex(Sex sex) {
         this.sex = sex;
     }
+
+    @Override
+    public int compareTo(Person person) {
+
+        int valueToReturn = 0;
+
+        if (this.name.compareTo(person.name) == 1) {
+
+            valueToReturn = 1;
+
+        } else if (this.name.compareTo(person.name) == -1) {
+
+            valueToReturn = -1;
+
+        } else {
+
+            if (this.age > person.age) {
+
+                valueToReturn = 1;
+
+            } else if (this.age < person.age) {
+
+                valueToReturn = -1;
+
+            } else {
+
+                if (this.sex.getSexFlagInt() > person.sex.getSexFlagInt()) {
+
+                    valueToReturn = 1;
+
+                } else if (this.sex.getSexFlagInt() < person.sex.getSexFlagInt()) {
+
+                    valueToReturn = -1;
+
+                } else {
+
+                    valueToReturn = 0;
+
+                }
+
+            }
+
+        }
+
+        return valueToReturn;
+
+    }
+
+
+
+
 }

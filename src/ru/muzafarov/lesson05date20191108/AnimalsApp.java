@@ -272,6 +272,15 @@ public class AnimalsApp implements Comparator<Animal> {
 
 
 
+        
+
+
+
+
+
+
+
+
         for(int m = 0; m < animalObjects.size(); m++ ) {
 
             animalObjects.get(m).compareTo(animalObjects.get(m + 1));

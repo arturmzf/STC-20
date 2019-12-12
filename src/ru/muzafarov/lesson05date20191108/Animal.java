@@ -68,19 +68,48 @@ public class Animal implements Comparable<Animal> {
     @Override
     public int compareTo(Animal animal) {
 
-        if(this.name.compareTo(animal.name) == 1) {
+        int valueToReturn = 0;
 
-            return 1;
+        if (this.owner.compareTo(animal.owner) == 1) {
 
-        } else if(this.name.compareTo(animal.name) == -1) {
+            valueToReturn = 1;
 
-            return -1;
+        } else if (this.owner.compareTo(animal.owner) == -1) {
+
+            valueToReturn = -1;
 
         } else {
 
-            // Далее сравнение по возрасту хозяина
+            if (this.name.compareTo(animal.name) == 1) {
+
+                valueToReturn = 1;
+
+            } else if (this.name.compareTo(animal.name) == -1) {
+
+                valueToReturn = -1;
+
+            } else {
+
+                if (this.weight > animal.weight) {
+
+                    valueToReturn = 1;
+
+                } else if (this.weight < animal.weight) {
+
+                    valueToReturn = -1;
+
+                } else {
+
+                    valueToReturn = 0;
+
+                }
+
+
+            }
 
         }
+
+        return valueToReturn;
 
     }
 
