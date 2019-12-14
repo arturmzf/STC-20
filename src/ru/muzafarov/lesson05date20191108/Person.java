@@ -50,6 +50,19 @@ public class Person implements Comparable<Person> {
 
         int valueToReturn = 0;
 
+        /*
+        if (this.name.equals(person.name)) {
+
+
+
+        } else {
+
+            return this.name.compareTo(person.name);
+
+        }
+        */
+
+
         if (this.name.compareTo(person.name) == 1) {
 
             valueToReturn = 1;

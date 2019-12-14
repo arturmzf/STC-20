@@ -23,7 +23,6 @@ public class AnimalsApp {
 
     public static int animalMainId = 0;
     public static Map<Integer, Animal> animals = new TreeMap<>();
-    // compareTo
 
     public static void main(String[] args) {
 
