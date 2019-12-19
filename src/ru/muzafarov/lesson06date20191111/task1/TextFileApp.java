@@ -1,5 +1,5 @@
 /**
- * Занятие № 6 [от 11.11.2019 (Пн)]
+ * Занятие № 06 [от 11.11.2019 (Пн)]
  * Темы:
  * - Пакет java.io
  * - Работа с ресурсами
@@ -12,6 +12,8 @@ package ru.muzafarov.lesson06date20191111.task1;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class TextFileApp implements Cloneable {
 
@@ -32,9 +34,22 @@ public class TextFileApp implements Cloneable {
     public static void fromFileToList(String fileResource) {
 
         List<Integer> symbolsInteger = new ArrayList<>();
+        Set<String> set = new TreeSet<>();
+
 
         try(FileInputStream fin = new FileInputStream(fileResource)) {
 
+            String st = "jgnn flefz r,grlpem dd ab ab";
+
+            String[] arr = st.toLowerCase().split(" ");
+
+            for (int i = 0; i < arr.length; i++) {
+
+                set.add(arr[i]);
+
+            }
+
+            /*
             int i = -1;
             while ((i = fin.read() - 1) != -1) {
 
@@ -56,6 +71,7 @@ public class TextFileApp implements Cloneable {
                 symbolsInteger.clear();
 
             }
+            */
 
 
         } catch (FileNotFoundException ex) {
@@ -71,6 +87,8 @@ public class TextFileApp implements Cloneable {
     }
 
     // Сортировка списка
+
+    /*
     public static void sortList(){
 
         for (int x = words.size() - 1; x >= 1; x--) {
@@ -79,7 +97,7 @@ public class TextFileApp implements Cloneable {
 
                 if (words.get(y).compareTo(words.get(y + 1)) < 0) {
 
-                    String tempWord = words.get(y).clone();
+                    String tempWord = words.get(y);
                     words.set(y, words.get(y + 1));
                     words.set(y + 1, tempWord);
 
@@ -90,11 +108,15 @@ public class TextFileApp implements Cloneable {
         }
 
     }
+    */
+
 
     // Запись содержимого списка в новый файл
     public static void fromListToFile(String fileDestination){
 
         try(FileOutputStream fout = new FileOutputStream(fileDestination)) {
+
+            // Для Set нужен Итератор
 
             for (int n = 0; n < (words.size() - 1); n++) {
 

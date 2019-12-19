@@ -1,5 +1,5 @@
 /**
- * Занятие № 6 [от 11.11.2019 (Пн)]
+ * Занятие № 06 [от 11.11.2019 (Пн)]
  * Темы:
  * - Пакет java.io
  * - Работа с ресурсами
@@ -62,6 +62,8 @@ public class TextFilesGeneratorApp {
         newSentence += createWord(amountOfLetters1, FALSE);
         // РАНДОМ
         String punctuation = ".!?";
+
+        // НЕ ВЫПОЛНЯТЬ! Необходимо написать метод getFiles(String path, int n, int size, String[] words, int probability), который создаст n файлов размером size в каталоге path. words - массив слов, probability - вероятность.
 
 
         return newSentence;
