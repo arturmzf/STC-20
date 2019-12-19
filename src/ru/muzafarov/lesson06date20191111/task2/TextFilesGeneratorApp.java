@@ -7,102 +7,93 @@
  * Музафаров Артур Ринатович
  */
 
+// НЕ ВЫПОЛНЯТЬ ЭТОТ ПУНКТ ПОКА!
+// Необходимо написать метод getFiles(String path, int n, int size, String[] words, int probability),
+// который создаст n файлов размером size в каталоге path. words - массив слов, probability - вероятность.
+
 package ru.muzafarov.lesson06date20191111.task2;
 
-import ru.muzafarov.lesson02date20191030.task3.Sex;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class TextFilesGeneratorApp {
 
+    private static Random rnd;
+    private static String wholeText = "";
+
     public static void main(String[] args) {
-
-        // Предложение
-        int n1 = 15; // n1 = [1; 15] need Random!
-        for (int i = 0; i < n1; i++) {
-
-
+        for (int x = 0; x < (rnd.nextInt(7)); x++) {
+            wholeText += createParagraf(rnd.nextInt(20));
         }
-
-        // Слово
-        int n2 = 15; // n1 = [1; 15] need Random!
-        for (int i = 0; i < n1; i++) {
-
-
-        }
-
-        // Абзац
-        int n3 = 20; // n3 = [1; 20] need Random!
-        for (int i = 0; i < n3; i++) {
-
-
-        }
-
     }
 
+    // Создание абзаца
+    // Текст состоит из абзацев. в одном абзаце 1<=n3<=20 предложений.
+    // В конце абзаца стоит разрыв строки и перенос каретки
+    public static String createParagraf(int amountOfSentenses) {
+        String wholeParagraf = "";
+        for (int k = 0; k < amountOfSentenses; k++) {
+            wholeParagraf += createSentence(rnd.nextInt(15)); // 1..15
+        }
+        System.out.println();
+        System.out.println();
+        return wholeParagraf;
+    }
+
+    // Создание предложения
     public static String createSentence(int amountOfWords) {
 
-        int amountOfLetters1 = 15; // = [1; 15] need Random!
-        String newSentence = createWord(amountOfLetters1, TRUE);
+        String newSentence = createWord(rnd.nextInt(15), TRUE); // 1..15
+
+        // РАНДОМНО вставляем запятую с пробелом или только пробел
+        if ((rnd.nextInt(2) == 0) ? TRUE : FALSE) {
+            newSentence += ", ";
+        } else {
+            newSentence += " ";
+        }
 
         for (int i = 0; i < amountOfWords - 2; i++) {
 
-            int amountOfLetters2 = 15; // = [1; 15] need Random!
-            newSentence += createWord(amountOfLetters2, FALSE);
-            newSentence += " ";
+            newSentence += createWord(rnd.nextInt(15), FALSE); // 1..15
+            // РАНДОМНО вставляем запятую с пробелом или только пробел
+            if ((rnd.nextInt(2) == 0) ? TRUE : FALSE) {
+                newSentence += ", ";
+            } else {
+                newSentence += " ";
+            }
 
         }
 
-        int amountOfLetters3 = 15; // = [1; 15] need Random!
-        newSentence += createWord(amountOfLetters1, FALSE);
-        // РАНДОМ
+        newSentence += createWord(rnd.nextInt(15), FALSE); // 1..15
+
+        // РАНДОМНО вставляем один из знаков
         String punctuation = ".!?";
-
-        // НЕ ВЫПОЛНЯТЬ! Необходимо написать метод getFiles(String path, int n, int size, String[] words, int probability), который создаст n файлов размером size в каталоге path. words - массив слов, probability - вероятность.
-
+        newSentence += punctuation.charAt(rnd.nextInt(punctuation.length()));
 
         return newSentence;
 
     }
 
+    // Создание слова
     public static String createWord(int amountOfLetters, boolean firstWord) {
 
-        //List<String> newWord = new ArrayList<>();
-        Random rnd = new Random();
         String stUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String stLowerCase = "abcdefghijklmnopqrstuvwxyz";
         String stBothCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         String newWord = "";
 
         if (firstWord) {
-
             newWord += stUpperCase.charAt(rnd.nextInt(stUpperCase.length()));
-
             for (int i = 0; i < amountOfLetters - 1; i++) {
-
                 newWord += stLowerCase.charAt(rnd.nextInt(stLowerCase.length()));
-
             }
-
         } else {
-
             newWord += stBothCase.charAt(rnd.nextInt(stBothCase.length()));
-
             for (int i = 0; i < amountOfLetters - 1; i++) {
-
                 newWord += stLowerCase.charAt(rnd.nextInt(stLowerCase.length()));
-
             }
-
         }
-
         return newWord;
-
     }
-
 }

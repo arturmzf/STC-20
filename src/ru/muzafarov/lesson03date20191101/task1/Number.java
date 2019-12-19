@@ -6,7 +6,7 @@
  *
  * Музафаров Артур Ринатович
  *
- * /*
+ */
 
 /*
 package ru.muzafarov.lesson03date20191101.task1;
