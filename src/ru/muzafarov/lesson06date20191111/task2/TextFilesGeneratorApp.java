@@ -19,13 +19,17 @@ import static java.lang.Boolean.TRUE;
 
 public class TextFilesGeneratorApp {
 
-    private static Random rnd;
+    private static Random rnd = new Random();
     private static String wholeText = "";
 
     public static void main(String[] args) {
-        for (int x = 0; x < (rnd.nextInt(7)); x++) {
+        int y = rnd.nextInt(7);
+        for (int x = 0; x < y; x++) {
             wholeText += createParagraf(rnd.nextInt(20));
         }
+        System.out.println(wholeText);
+        // Вывод в файл
+        // Обратить внимание на перенос
     }
 
     // Создание абзаца

@@ -91,8 +91,9 @@ public class TextFileApp implements Cloneable {
             // Для setOfWords нужен Итератор
             Iterator<String> setOfWordsIterator = setOfWords.iterator();
             while (setOfWordsIterator.hasNext()) {
-                byte[] buffer = setOfWordsIterator.next().getBytes();
+                byte[] buffer = setOfWordsIterator.next().getBytes();;
                 fout.write(buffer);
+                // fout.write(buffer); FILEWRITER, BUFFEREDWRITER
             }
 
             /*
