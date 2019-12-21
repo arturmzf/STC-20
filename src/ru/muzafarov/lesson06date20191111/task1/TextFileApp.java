@@ -14,8 +14,8 @@ import java.util.*;
 
 public class TextFileApp implements Cloneable {
 
-    private static String fileResource = "src/ru/muzafarov/lesson06date20191111/resources/fileResource.txt";
-    private static String fileDestination = "src/ru/muzafarov/lesson06date20191111/resources/fileDestination.txt";
+    private static String fileResource = "src/ru/muzafarov/lesson06date20191111/resources/app1FileResource.txt";
+    private static String fileDestination = "src/ru/muzafarov/lesson06date20191111/resources/app1FileDestination.txt";
     // private static List<String> words = new ArrayList<>(); // Устаревшее решение
     private static Set<String> setOfWords = new TreeSet<>();
 
@@ -29,10 +29,12 @@ public class TextFileApp implements Cloneable {
     public static void fromFileToList(String fileResource) {
 
         //List<Integer> symbolsInteger = new ArrayList<>(); // Устаревшее решение
+        // Кракозябры остались! :(
 
         try(FileInputStream fin = new FileInputStream(fileResource)) {
 
             int i = -1;
+            boolean repeat = false;
             String wholeFileString = "";
             while ((i = fin.read()) != -1) {
                 wholeFileString += (char) i;
@@ -41,8 +43,12 @@ public class TextFileApp implements Cloneable {
 
             for (int m = 0; m < resultWords.length; m++) {
                 if (!setOfWords.add(resultWords[m])) {
-                    System.out.println("WARNING: Слово уже существует в списке...");
+                    repeat = true;
                 }
+            }
+
+            if(repeat) {
+                System.out.println("WARNING: В исходном файле были повторяющиеся слова!");
             }
 
             /*
@@ -87,14 +93,13 @@ public class TextFileApp implements Cloneable {
 
     // Запись содержимого списка в новый файл
     public static void fromListToFile(String fileDestination){
-        try(FileOutputStream fout = new FileOutputStream(fileDestination)) {
+        try(FileWriter fileWriter = new FileWriter(fileDestination, true)) {
             // Для setOfWords нужен Итератор
             Iterator<String> setOfWordsIterator = setOfWords.iterator();
             while (setOfWordsIterator.hasNext()) {
-                byte[] buffer = setOfWordsIterator.next().getBytes();;
-                fout.write(buffer);
-                // fout.write(buffer); FILEWRITER, BUFFEREDWRITER
+                fileWriter.write(setOfWordsIterator.next() + "\n");
             }
+            fileWriter.close(); // Надо ли?
 
             /*
             // Устаревшее решение
@@ -114,5 +119,37 @@ public class TextFileApp implements Cloneable {
         }
 
     }
+
+    /*
+    // Ещё одно устаревшее решение
+    public static void fromListToFile(String fileDestination){
+        try(FileOutputStream fout = new FileOutputStream(fileDestination)) {
+            // Для setOfWords нужен Итератор
+            Iterator<String> setOfWordsIterator = setOfWords.iterator();
+            while (setOfWordsIterator.hasNext()) {
+                byte[] buffer = setOfWordsIterator.next().getBytes();
+                fout.write(buffer);
+                // fout.write(buffer); FILEWRITER, BUFFEREDWRITER
+            }
+
+            /*
+            // Устаревшее решение
+            for (int n = 0; n < (words.size() - 1); n++) {
+                byte[] buffer = words.get(n).getBytes();
+                fout.write(buffer);
+                if (words.get(n).toLowerCase().equals(words.get(n + 1).toLowerCase())) {
+                    n++;
+                }
+            }
+            * /
+
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
+    */
 
 }
