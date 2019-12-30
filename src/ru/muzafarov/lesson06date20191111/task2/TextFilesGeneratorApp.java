@@ -13,6 +13,10 @@
 
 package ru.muzafarov.lesson06date20191111.task2;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.Random;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -21,6 +25,7 @@ public class TextFilesGeneratorApp {
 
     private static Random rnd = new Random();
     private static String wholeText = "";
+    private static String fileDestination = "src/ru/muzafarov/lesson06date20191111/resources/app2FileDestination.txt";
 
     public static void main(String[] args) {
         int y = rnd.nextInt(7);
@@ -30,6 +35,13 @@ public class TextFilesGeneratorApp {
         System.out.println(wholeText);
         // Вывод в файл
         // Обратить внимание на перенос
+        try(FileWriter fileWriter = new FileWriter(fileDestination, true)) {
+            fileWriter.write(wholeText);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     // Создание абзаца
@@ -40,8 +52,7 @@ public class TextFilesGeneratorApp {
         for (int k = 0; k < amountOfSentenses; k++) {
             wholeParagraf += createSentence(rnd.nextInt(15)); // 1..15
         }
-        System.out.println();
-        System.out.println();
+        wholeParagraf += "\n";
         return wholeParagraf;
     }
 
