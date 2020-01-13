@@ -25,7 +25,7 @@ public class MyClassLoader extends ClassLoader {
     public Class<?> findClass(String name) throws ClassNotFoundException {
         if ("SomeClass".equals(name)) {
             try {
-                byte[] classInBytesView = Files.readAllBytes(Paths.get("./someClass.class"));
+                byte[] classInBytesView = Files.readAllBytes(Paths.get("/home/artur/Documents/JavaProjects/STC-20/out/production/STC-20/ru/muzafarov/lesson09date20191118/SomeClass.class"));
                 return defineClass(name, classInBytesView, 0, classInBytesView.length);
             } catch (IOException e) {
                 e.printStackTrace();
