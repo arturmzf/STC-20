@@ -18,6 +18,8 @@ public class JDBCApp {
     private final static String DATABASE_PASSWORD = "postgres";
     private final static String SQL_INSERT =
             "INSERT INTO person(name, birthday, login, city, email, description) VALUES(?, ?, ?, ?, ?, ?)";
+    private final static String SQL_SELECT =
+            "SELECT * FROM person WHERE id = ? and name = ?";
 
     public static void main(String[] args) {
         try {
@@ -48,6 +50,8 @@ public class JDBCApp {
         preparedStatement.setString(5, "art.mzf@gmail.com");
         preparedStatement.setString(6, "Cool Man");
 
+        preparedStatement.execute();
+        preparedStatement.close();
         connection.close();
     }
 
@@ -65,21 +69,76 @@ public class JDBCApp {
             "\"artur.mzf@gmail.com\"," +
             "\"Cool Man\")");
         statement.addBatch("INSERT INTO person(name, birthday, login, city, email, description) " +
-                "VALUES(\"Музафаров Ринат Абрарович\"," +
-                "new Date(13/08/1957)," +
-                "\"rinatmzf\"," +
+                "VALUES(\"Самохвалов Юрий Григорьевич\"," +
+                "new Date(11/12/1935)," +
+                "\"samohvalov.yu.g\"," +
                 "\"Zelenodolsk\"," +
-                "\"rinat.mzf@gmail.com\"," +
-                "\"Father of Cool Man\")");
+                "\"yuriy.samohvalov@gmail.com\"," +
+                "\"no description\")");
         statement.addBatch("INSERT INTO person(name, birthday, login, city, email, description) " +
-                "VALUES(\"Музафарова Кадрия Акрамовна\"," +
-                "new Date(11/05/1960)," +
-                "\"kadriyamzf\"," +
-                "\"Zelenodolsk\"," +
-                "\"kadriya.mzf@gmail.com\"," +
-                "\"Mother of Cool Man\")");
+                "VALUES(\"Деточкин Юрий Иванович\"," +
+                "new Date(04/02/1950)," +
+                "\"detochkin.yu.i\"," +
+                "\"Vladivostok\"," +
+                "\"yuriy.detochkin@mail.ru\"," +
+                "\"no description\")");
+        statement.addBatch("INSERT INTO person(name, birthday, login, city, email, description) " +
+                "VALUES(\"Огудалова Лариса Дмитриевна\"," +
+                "new Date(28/07/1970)," +
+                "\"ogudalova.l.d\"," +
+                "\"Ryazan\"," +
+                "\"larisa.ogudalova@ya.ru\"," +
+                "\"no description\")");
         int[] result = statement.executeBatch();
         statement.close();
+        connection.close();
+    }
+
+    // Параметризированная выборка по login_ID и name одновременно
+    public static void doingPreparedSelect() throws SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_LOGIN, DATABASE_PASSWORD);
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT);
+        preparedStatement.setInt(1, 1);
+        preparedStatement.setString(2, "Иванов Иван Иванович");
+        preparedStatement.setInt(1, 3);
+        preparedStatement.setString(2, "Калугина Людмила Прокофьевна");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            System.out.print("ID = " + resultSet.getInt("id"));
+            System.out.print("; name = " + resultSet.getString("name"));
+            System.out.print("; birthday = " + resultSet.getDate("birthday"));
+            System.out.print("; login = " + resultSet.getString("login"));
+            System.out.print("; city = " + resultSet.getString("city"));
+            System.out.print("; email = " + resultSet.getString("email"));
+            System.out.println("; description = " + resultSet.getString("description"));
+        }
+        preparedStatement.close();
+        connection.close();
+    }
+
+    // Параметризированная выборка по login_ID и name одновременно
+    public static void doingPreparedSelect() throws SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_LOGIN, DATABASE_PASSWORD);
+        PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT);
+        preparedStatement.setInt(1, 1);
+        preparedStatement.setString(2, "Иванов Иван Иванович");
+        preparedStatement.setInt(1, 3);
+        preparedStatement.setString(2, "Калугина Людмила Прокофьевна");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            System.out.print("ID = " + resultSet.getInt("id"));
+            System.out.print("; name = " + resultSet.getString("name"));
+            System.out.print("; birthday = " + resultSet.getDate("birthday"));
+            System.out.print("; login = " + resultSet.getString("login"));
+            System.out.print("; city = " + resultSet.getString("city"));
+            System.out.print("; email = " + resultSet.getString("email"));
+            System.out.println("; description = " + resultSet.getString("description"));
+        }
+        preparedStatement.close();
         connection.close();
     }
 }
