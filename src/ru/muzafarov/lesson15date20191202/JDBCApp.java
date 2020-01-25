@@ -25,6 +25,8 @@ public class JDBCApp {
         try {
             JDBCApp.doingPreparedStatement();
             JDBCApp.doingBatch();
+            JDBCApp.doingPreparedSelect();
+            JDBCApp.nonAutoCommit();
         } catch(SQLException e) {
             e.printStackTrace();
         } catch(ClassNotFoundException e) {
@@ -118,27 +120,60 @@ public class JDBCApp {
         connection.close();
     }
 
-    // Параметризированная выборка по login_ID и name одновременно
-    public static void doingPreparedSelect() throws SQLException, ClassNotFoundException {
+    // Перевод connection в ручное управление транзакциями
+    public static void nonAutoCommit() throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
         Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_LOGIN, DATABASE_PASSWORD);
-        PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT);
-        preparedStatement.setInt(1, 1);
-        preparedStatement.setString(2, "Иванов Иван Иванович");
-        preparedStatement.setInt(1, 3);
-        preparedStatement.setString(2, "Калугина Людмила Прокофьевна");
-        ResultSet resultSet = preparedStatement.executeQuery();
+        connection.setAutoCommit(false);
+        Statement statement = connection.createStatement();
 
-        while (resultSet.next()) {
-            System.out.print("ID = " + resultSet.getInt("id"));
-            System.out.print("; name = " + resultSet.getString("name"));
-            System.out.print("; birthday = " + resultSet.getDate("birthday"));
-            System.out.print("; login = " + resultSet.getString("login"));
-            System.out.print("; city = " + resultSet.getString("city"));
-            System.out.print("; email = " + resultSet.getString("email"));
-            System.out.println("; description = " + resultSet.getString("description"));
-        }
-        preparedStatement.close();
+        // Запись № 1
+        statement.executeUpdate(
+                "INSERT INTO person(name, birthday, login, city, email, description) " +
+                        "VALUES(\"Лукашин Евгений Михайлович\"," +
+                        "new Date(18/11/1942)," +
+                        "\"lukashin.e.m\"," +
+                        "\"Stavropol\"," +
+                        "\"evgeniy.lukashin@mail.ru\"," +
+                        "\"no description\"));"
+        );
+
+        // Запись № 2
+        statement.executeUpdate(
+                "INSERT INTO roles(name, description) " +
+                        "VALUES(\"администратор\"," +
+                        "\"no description\"));"
+        );
+
+        // Запись № 3
+        statement.executeUpdate(
+                "INSERT INTO roles(name, description) " +
+                        "VALUES(\"пользователь\"," +
+                        "\"no description\"));"
+        );
+
+        // Запись № 4
+        statement.executeUpdate(
+                "INSERT INTO user_roles(user_id, role_id) " +
+                        "VALUES(1, 1));"
+        );
+
+        // Установка Savepoint
+        Savepoint savepointA = connection.setSavepoint("A");
+
+        // Запись № 5 - НЕКОРРЕКТНАЯ!
+        statement.executeUpdate(
+                "INSERT INTO user_roles(user_id, role_id) " +
+                        "VALUES(700, 800));"
+        );
+
+        // Rollback
+        connection.rollback(savepointA);
+
+        // Commit
+        connection.commit();
+
+        statement.close();
         connection.close();
     }
 }
